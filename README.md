@@ -4,16 +4,28 @@ The ultimate plant simulator!
 
 The game is simple. You have 20 days to keep your plant alive. Every day you can either water your
 plant, or give your plant light. But beware! Every day has new weather, and if you over water
-or give your plant too much light, it might not make it!
+or give your plant too much light, it might not make it.
 
 When the game is started you are presented with a screen showing the current day and weather and the
 option to water or give light to your plant. After 2 seconds it advances to the next day.
 
-If the weather is raining, be sure to give your plant sun! If you water it it will over water and
+If the weather is raining, be sure to give your plant sun! If you give water it will over water and
 hurt the plant. If the weather is sunny, do the opposite, water will help your plant and more light
 will hurt it. On cloudy days you can give water or light, it will appreciate either one.
 
 Pay attention to the score bar at the top, if it goes red your plant is dying!
+
+## Running the App 
+
+```
+yarn 
+yarn start
+```
+
+This will install deps and then start the application. You can then go to `http://localhost:3000` 
+in your browser of choice to see the application if it does not launch automatically. 
+
+The app was created using Create React App. 
 
 ## TODO
 
