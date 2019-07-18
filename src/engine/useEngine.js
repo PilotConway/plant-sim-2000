@@ -14,7 +14,7 @@ import reducer, { initialState } from './reducer';
 import actions from './actions';
 
 const MS_PER_DAY = 2000;
-const MAX_DAYS = 5;
+const MAX_DAYS = 20;
 
 /**
  * Selector to compute score from the state.
