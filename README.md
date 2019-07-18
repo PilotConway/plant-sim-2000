@@ -15,6 +15,18 @@ will hurt it. On cloudy days you can give water or light, it will appreciate eit
 
 Pay attention to the score bar at the top, if it goes red your plant is dying!
 
+## Running the App 
+
+```
+yarn 
+yarn start
+```
+
+This will install deps and then start the application. You can then go to `http://localhost:3000` 
+in your browser of choice to see the application if it does not launch automatically. 
+
+The app was created using Create React App. 
+
 ## TODO
 
 A bunch of things that need to be addressed, or made better, or things that immediately bug me.
