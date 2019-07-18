@@ -15,17 +15,17 @@ will hurt it. On cloudy days you can give water or light, it will appreciate eit
 
 Pay attention to the score bar at the top, if it goes red your plant is dying!
 
-## Running the App 
+## Running the App
 
 ```
-yarn 
+yarn
 yarn start
 ```
 
-This will install deps and then start the application. You can then go to `http://localhost:3000` 
-in your browser of choice to see the application if it does not launch automatically. 
+This will install deps and then start the application. You can then go to `http://localhost:3000`
+in your browser of choice to see the application if it does not launch automatically.
 
-The app was created using Create React App. 
+The app was created using Create React App.
 
 ## TODO
 
@@ -33,10 +33,6 @@ A bunch of things that need to be addressed, or made better, or things that imme
 
 - I think once the score goes negative, the game should end with the "Your plant died" screen.
   Currently, no matter the status, it's waits until the end of the time period to finish the game.
-- The day should also be in the reducer, and game finished should be handled through a gameState
-  property. This would clean up the useEngine hook as well as hopefully address the useEffect
-  memory leak being shown because of a state update after unmount of the component in the console.
-- There are two lint warnings currently that need to be addressed in the console.
 - Once the user clicks, the buttons should go disabled. They have made their choice, and should now
   have to live with it for the full two seconds, correct or not. Should make it more challenging too.
 - Originally I wanted to also have a crop yield. At the end, your score acutally relates to a total

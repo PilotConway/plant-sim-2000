@@ -8,6 +8,9 @@ export const initialState = {
   totalLight: 0,
   totalWater: 0,
   weather: generateWeather(),
+  gameState: 'started',
+  maxDays: 20,
+  day: 0,
 };
 
 /**
@@ -46,7 +49,7 @@ function calculateNewValues(state) {
       break;
     }
     case 'cloudy':
-    case 'default': {
+    default: {
       // do nothing
     }
   }
@@ -61,6 +64,19 @@ function calculateNewValues(state) {
   }
 
   return [totalLight + light, totalWater + water];
+}
+
+/**
+ * Calculates the new game state by checking if we have reached the end of the simulation.
+ *
+ * @param {object} state The current game state
+ * @returns {string} The new game state, 'ready' or 'finished'
+ */
+function calculateGameState(state) {
+  if (state.day === state.maxDays) {
+    return 'finished';
+  }
+  return 'started';
 }
 
 /**
@@ -82,12 +98,15 @@ export default function reducer(state, action) {
      */
     case 'finishDay': {
       const [totalLight, totalWater] = calculateNewValues(state);
+      const gameState = calculateGameState(state);
       return {
         ...state,
         userAction: 'none',
+        weather: generateWeather(),
+        day: state.day + 1,
         totalLight,
         totalWater,
-        weather: generateWeather(),
+        gameState,
       };
     }
     case 'light':

@@ -14,7 +14,7 @@ import reducer, { initialState } from './reducer';
 import actions from './actions';
 
 const MS_PER_DAY = 2000;
-const MAX_DAYS = 20;
+const MAX_DAYS = 3;
 
 /**
  * Selector to compute score from the state.
@@ -42,21 +42,7 @@ function userActionSelector(state) {
 }
 
 export default function useEngine(onFinished) {
-  // Set the day on a ref so the interval always has access to the latest.
-  const currentDayRef = React.useRef();
-  const [day, setDay] = React.useState(0);
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-
-  /**
-   * This effect sets the current day for the interval and also
-   * checks the number of days to see if we have finished the simulation.
-   */
-  React.useEffect(() => {
-    currentDayRef.current = day;
-    if (day === MAX_DAYS) {
-      onFinished(scoreSelector(state));
-    }
-  }, [day, state.totalLight, state.totalWater, onFinished]);
+  const [state, dispatch] = React.useReducer(reducer, { ...initialState, maxDays: MAX_DAYS });
 
   /**
    * This effect creates a interval to change days.
@@ -64,7 +50,6 @@ export default function useEngine(onFinished) {
    */
   React.useEffect(() => {
     const timer = setInterval(() => {
-      setDay(currentDayRef.current + 1);
       dispatch(actions.finishDay());
     }, MS_PER_DAY);
 
@@ -78,5 +63,12 @@ export default function useEngine(onFinished) {
     dispatch(action);
   }
 
-  return [day, state.weather, scoreSelector(state), userActionSelector(state), setAction];
+  return [
+    state.day,
+    state.weather,
+    scoreSelector(state),
+    state.gameState,
+    userActionSelector(state),
+    setAction,
+  ];
 }

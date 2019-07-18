@@ -34,7 +34,12 @@ GameScreen.propTypes = {
 };
 
 export default function GameScreen({ onRestart, onFinished }) {
-  const [day, weather, score, userAction, setAction] = useEngine(onFinished);
+  const [day, weather, score, gameState, userAction, setAction] = useEngine();
+
+  if (gameState === 'finished') {
+    onFinished(score);
+  }
+
   return (
     <React.Fragment>
       <Score score={score} />
