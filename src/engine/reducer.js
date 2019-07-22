@@ -2,6 +2,8 @@
  * Reducer function and helpers for the game engine.
  */
 import generateWeather from './generateWeather';
+import { MAX_DAYS } from './constants';
+import { scoreSelector } from './selectors';
 
 export const initialState = {
   userAction: 'none',
@@ -9,7 +11,6 @@ export const initialState = {
   totalWater: 0,
   weather: generateWeather(),
   gameState: 'started',
-  maxDays: 20,
   day: 0,
 };
 
@@ -73,9 +74,14 @@ function calculateNewValues(state) {
  * @returns {string} The new game state, 'ready' or 'finished'
  */
 function calculateGameState(state) {
-  if (state.day === state.maxDays) {
+  if (state.day >= MAX_DAYS) {
     return 'finished';
   }
+
+  if (scoreSelector(state) < 0) {
+    return 'finished';
+  }
+
   return 'started';
 }
 
@@ -98,16 +104,16 @@ export default function reducer(state, action) {
      */
     case 'finishDay': {
       const [totalLight, totalWater] = calculateNewValues(state);
-      const gameState = calculateGameState(state);
-      return {
+      const newState = {
         ...state,
         userAction: 'none',
         weather: generateWeather(),
         day: state.day + 1,
         totalLight,
         totalWater,
-        gameState,
       };
+      newState.gameState = calculateGameState(newState);
+      return newState;
     }
     case 'light':
     case 'water': {
